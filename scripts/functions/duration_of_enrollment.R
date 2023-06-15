@@ -1,35 +1,28 @@
 #' duration_of_enrollment
-#'
-#' Description:
-#'   This function calculates the duration of enrollment in days for each row in a dataframe.
-#'   It takes the start date and stop date columns, handles missing or NA values,
-#'   and assigns the calculated duration to the 'partient_days' column.
-#'
-#' Usage:
-#'   duration_of_enrollment(df, start_date_col, stop_date_col)
-#'
-#' Arguments:
-#'   df: The dataframe containing the enrollment data.
-#'   start_date_col: The name of the column representing the start date of enrollment.
-#'   stop_date_col: The name of the column representing the stop date of enrollment.
-#'
-#' Details:
-#'   The function iterates through each row of the dataframe and checks if either the start date or stop date is missing or NA.
-#'   If any of the dates is missing, it assigns "ERROR" to the corresponding row in the 'participant_days' column.
-#'   Otherwise, it converts the start date and stop date to the Date type using the 'dmy()' function from the lubridate package.
-#'   The difference between the stop date and start date is then calculated and stored as the duration of enrollment in days.
-#'
-#' Value:
-#'   Returns the updated dataframe with the 'patient_days' column populated.
-#'
-#' Examples:
-#'   Assuming you have a dataframe named 'df' with 'start_date' and 'stop_date' columns:
-#'
-#'   # Calculate the duration of enrollment in days
-#'   updated_df <- duration_of_enrollment(df, "start_date", "stop_date")
-#'
-#'   Ensure that you provide the correct column names that correspond to the start date and stop date columns in your dataframe.
-#'   Note: If any rows have missing or NA values in either the start date or stop date column, the 'partient_days' value for those rows will be assigned as "ERROR".
+# duration_of_enrollment Function Description:
+#
+# This function calculates the duration of enrollment in days for each row of a data frame, based on the provided start and stop date columns.
+# It handles different date formats and provides a warning if the format of the dates has changed, prompting a rewrite of the function.
+#
+# Parameters:
+#   - df: The data frame containing the enrollment data.
+#   - start_date_col: The column name or index of the start date in the data frame.
+#   - stop_date_col: The column name or index of the stop date in the data frame.
+#
+# Returns:
+#   - The input data frame with an additional column named 'patient_days' representing the duration of enrollment in days.
+#   - If missing values are encountered in either the start or stop date columns, the 'patient_days' value for that row will be set to "Check missing values".
+#
+# Notes:
+#   - This function requires the 'lubridate' package.
+#   - It assumes that the date formats are either day-month-year (dmy), month-day-year (mdy), or year-month-day (ymd).
+#   - If the date format has changed and the parsing is unsuccessful, a warning is issued, and the 'patient_days' value for that row is set to NA.
+#
+# Usage example:
+#   df <- duration_of_enrollment(df, "start_date", "stop_date")
+#
+
+
 library(lubridate)
 
 duration_of_enrollment <- function(df, start_date_col, stop_date_col) {
@@ -42,8 +35,24 @@ duration_of_enrollment <- function(df, start_date_col, stop_date_col) {
     if (is.na(start_date) || is.na(stop_date)) {
       df$patient_days[i] <- "Check missing values"
     } else {
-      start_date <- dmy(start_date)
-      stop_date <- dmy(stop_date)
+      # Check the format of start_date and stop_date
+      if (!inherits(start_date, "Date")) {
+        start_date <- parse_date_time(start_date, orders = c("dmy", "mdy", "ymd"))
+        if (is.na(start_date)) {
+          warning("Start date format changed")
+          df$patient_days[i] <- NA
+          next
+        }
+      }
+      if (!inherits(stop_date, "Date")) {
+        stop_date <- parse_date_time(stop_date, orders = c("dmy", "mdy", "ymd"))
+        if (is.na(stop_date)) {
+          warning("Stop date format changed")
+          df$patient_days[i] <- NA
+          next
+        }
+      }
+      
       df$patient_days[i] <- as.integer(stop_date - start_date)
     }
   }
