@@ -47,7 +47,7 @@ The output variable generated for each ClinicalTrails.gov registered trials
 |-------------------|-------------|
 | nctid             |  Trial ID   |
 | is_crossreg_euctr | Boolean indicating whether or not the 'nctid' has cross-registration in EUCTR |
-|   crossreg_euctr_ids| Cross-registered EUCTR ids for CLinicalTrials.gov registered trial |                |
+|   crossreg_euctr_ids| Cross-registered EUCTR ids for ClinicalTrials.gov registered trial |                |
 | has_summary_result_euctr | Boolean indicating the availability of summary results on the EUCTR registry for the trial |
 
 
@@ -65,7 +65,7 @@ The 'crossreg_euctr_ids' having a summary result section.
 ## Output
 | variable          |  description|
 |-------------------|-------------|
-|   crossreg_euctr_ids| Cross-registered EUCTR ids for CLinicalTrials.gov registered trial |    
+|   crossreg_euctr_ids| Cross-registered EUCTR ids for ClinicalTrials.gov registered trial |    
 | has_adverse_events | Boolean indicating the availability of summary results on the EUCTR registry for the trial|
 
 
