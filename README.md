@@ -54,14 +54,19 @@ The output variable generated for each ClinicalTrails.gov registered trials
 
 # Part 3 (under work)
 ## Description
-The script checks the available  summary result section for 'nctids' and cross-registered EUCTR ids to extract information related to 'serious adverse events'.
+The script checks the available  summary result section for cross-registered EUCTR ids to extract information related to 'serious adverse events'.
 
 ## Input
-The 'nctids' and 'crossreg_euctr_ids' having a summary result section.
+The 'crossreg_euctr_ids' having a summary result section.
 
 ## Dependencies
-`get_reported_events_euctr.R` function: This function retrieves adverse events section for a EUCTR entry with a result section. 
+`get_reported_events_euctr.R` function: This function retrieves the adverse events section for a EUCTR entry with a result section. 
 
+## Output
+| variable          |  description|
+|-------------------|-------------|
+|   crossreg_euctr_ids| Cross-registered EUCTR ids for CLinicalTrials.gov registered trial |    
+| has_adverse_events | Boolean indicating the availability of summary results on the EUCTR registry for the trial|
 
 
 
