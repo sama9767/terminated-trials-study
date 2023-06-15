@@ -70,6 +70,7 @@ The 'crossreg_euctr_ids' having a summary result section.
 
 
 
-
+# References
+Carlisle BG. Analysis of clinical trial registry entry histories using the novel R package cthist. PLoS One. 2022;17(7):e0270909. [https://doi.org/10.1371/journal.pone.0270909](https://doi.org/10.1371/journal.pone.0270909)
 
 
