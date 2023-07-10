@@ -8,7 +8,7 @@ This repository focuses on processing [ClinicalTrials.gov](https://clinicaltrial
 This part focuses on processing historical entries related to ClinicalTrials.gov registered terminated trials and relies on ['cthist'](https://github.com/bgcarlisle/cthist) package developed by [BG Carlisle](https://github.com/bgcarlisle).
 
 ## Input
-The dataset used for processing should include trial ID  (nctid) of ClinicalTrials.gov registered trials with recruitment status ('recruitment_status') specified as "Terminated" in the registry.
+The dataset used for processing should include trial ID  (nctid) of ClinicalTrials.gov registered trials with recruitment status ('recruitment_status') specified as "Terminated" in the registry. Refer the script
 
 ## Dependencies: 
 1. The 'cthist' package is utilised to obtain historical entries for the terminated trials
