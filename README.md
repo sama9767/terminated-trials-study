@@ -1,14 +1,14 @@
 # terminated-trials-study      
 
 # Overview
-This repository focuses on processing [ClinicalTrials.gov](https://clinicaltrials.gov/) registered trials with a "Terminated" status, aiming to assess and provide insights for such trials.
+This repository focuses on processing [ClinicalTrials.gov](https://clinicaltrials.gov/) registered trials with a "Terminated" status, aiming to assess and provide insights for such trials. For following part 1, refer to the [01_analyse-data-terminated.R](https://github.com/sama9767/terminator-trial-study/blob/main/script/01_analyse-data-terminated.R).
 
 # Part 1
 ## Description
 This part focuses on processing historical entries related to ClinicalTrials.gov registered terminated trials and relies on ['cthist'](https://github.com/bgcarlisle/cthist) package developed by [BG Carlisle](https://github.com/bgcarlisle).
 
 ## Input
-The dataset used for processing should include trial ID  (nctid) of ClinicalTrials.gov registered trials with recruitment status ('recruitment_status') specified as "Terminated" in the registry. Refer the script
+The dataset used for processing should include trial ID (nctid) of ClinicalTrials.gov registered trials with recruitment status ('recruitment_status') specified as "Terminated" in the registry. 
 
 ## Dependencies: 
 1. The 'cthist' package is utilised to obtain historical entries for the terminated trials
@@ -46,7 +46,7 @@ Bi-directional cross-registration checks will be performed using two approaches:
 
 1. Cross-registration from ClinicalTrials.gov to EUCTR: The IntoValue dataset will be used to identify cross-registrations between the ctgov (ClinicalTrials.gov) registry and the EUCTR (European Union Clinical Trials Register) registry. The [cross-registration](https://github.com/maia-sh/intovalue-data/blob/main/data/processed/registries/registry-crossreg.rds) dataset will be utilized to find EUCTR cross-registrations for the corresponding NCT IDs.
 
-2. Cross-registration from EUCTR to ctgov: EUCTR IDs associated with German UMC leads will be extracted from a [JSON dataset](https://raw.githubusercontent.com/ebmdatalab/euctr-tracker-data/master/all_trials.json). The dataset will further be analyzed to identify additional identifiers in the protocol and result pages of the EUCTR registry. The `combine_info function`, sourced from a forked version of the ["euctrscrape"](https://github.com/delwen/euctrscrape) repository by Delwen Franzen and originally created by BG Carlisle, will be used for this purpose. From the extracted additional identifiers, NCT IDs found in the original IntoValue dataset will be identified, thus obtaining cross-registered data from both sources.
+2. Cross-registration from EUCTR to ctgov: EUCTR IDs associated with German UMC leads will be extracted from a [JSON dataset](https://raw.githubusercontent.com/ebmdatalab/euctr-tracker-data/master/all_trials.json), maintained in the [euctr-tracker-data](https://github.com/ebmdatalab/euctr-tracker-data) repository. The dataset will further be analyzed to identify additional identifiers in the protocol and result pages of the EUCTR registry. The `combine_info function`, sourced from a forked version of the ["euctrscrape"](https://github.com/delwen/euctrscrape) repository by Delwen Franzen and originally created by BG Carlisle, will be used for this purpose. From the extracted additional identifiers, NCT IDs found in the original IntoValue dataset will be identified, thus obtaining cross-registered data from both sources.
 
 Once the cross-registered data is obtained, the EUCTR IDs will be checked to determine if the corresponding trials had results posted in the registry using the `get_euctr_result_link.R` function.
 
@@ -65,7 +65,7 @@ The output variable generated for each ClinicalTrails.gov registered trial:
 | crossreg_euctr_ids| Cross-registered EUCTR ids for ClinicalTrials.gov registered trial |                
 | is_crossreg_euctr | Boolean indicating whether or not the 'nctid' has cross-registration in EUCTR |
 | has_summary_result_euctr | Boolean indicating the availability of summary results on the EUCTR registry for the trial |
-| link|link to available result section page |
+| link|Link to available result section page |
 
 
 
