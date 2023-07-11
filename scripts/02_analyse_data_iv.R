@@ -1,4 +1,5 @@
-#' This script is based on '01_analyse_data_terminated.R' and generates following variables for IntoValue dataset
+#' This script is based on '01_analyse_data_terminated.R' and generates following variables 
+#' for terminated trials in  IntoValue dataset (link:https://github.com/maia-sh/intovalue-data/blob/main/data/processed/trials.rds)
 #
 # - nctid: Trial ID
 # - start_date: Date when the trial was started
@@ -7,7 +8,7 @@
 # - has_summary_result_ctgov: Boolean indicating whether summary results are available on ClinicalTrials.gov for the trial
 # - anticipated_enrollment: The expected number of participants that the trial aims to enroll
 # - actual_enrollment: The observed number of participants who are actually enrolled
-# - patient_days : The number of days participants were involved in trial until termination
+# - trial_days : The number of days trial was ongoing until termination
 # - enrollment_percentage : The percentage of enrollment achieved until termination
 
 # load duration_of_enrollment function
@@ -49,10 +50,10 @@ iv_terminated <- intovalue_raw %>%
 iv_terminated_cthist <- read.csv(here::here("data","processed_dataset","intovalue", "cthist_iv.csv"))
 
 
-# create reason for termination variable (refers to the reason of termination for a clincial trial)
+# create reason for termination variable (refers to the reason of termination for a clinicial trial)------
 iv_terminated_cthist <- iv_terminated_cthist %>% 
   dplyr::group_by(nctid) %>% 
-  dplyr::mutate(why_stopped = ifelse(any(nzchar(whystopped)), dplyr::first(na.omit(whystopped)),NA_character_)) %>% 
+  dplyr::mutate(why_stopped = ifelse(any(nzchar(whystopped)), dplyr::last(na.omit(whystopped)),NA_character_)) %>% 
   dplyr::ungroup() 
 
 # crate has_summary_result_ctgov variable (refers to summary resulted posted in ClinicalTrial.gov)
@@ -62,11 +63,11 @@ iv_terminated_cthist <- iv_terminated_cthist %>%
   dplyr::ungroup()
 
 
-## time of termination (start_date, stop date)
+## time of termination (start_date, stop date)----------------------------------
 
 # create a 'start_date' variable (when trial was started)
 iv_terminated_cthist <- iv_terminated_cthist %>%  dplyr::group_by(nctid) %>%
-  dplyr::mutate(start_date = study_start_date) %>% dplyr::ungroup()
+  dplyr::mutate(start_date =  dplyr::last(study_start_date)) %>% dplyr::ungroup()
 
 # create a 'stop_date' variable (when trial overall status was first updated to terminated in registry)
 iv_terminated_cthist <- iv_terminated_cthist %>%
@@ -77,28 +78,29 @@ iv_terminated_cthist <- iv_terminated_cthist %>%
 
 
 
-## degree of recruitment (anticipated and actual enrollment, percentage of enrollment)
+## degree of recruitment (anticipated and actual enrollment, percentage of enrollment)-------------------
 
 # create a 'anticipated enrollment' variable (refers to the expected number of participants that the trial aims to enroll)
 iv_terminated_cthist <- iv_terminated_cthist %>% 
   dplyr::group_by(nctid) %>% 
-  dplyr::mutate(anticipated_enrollment = ifelse(enrolment_type == "Anticipated", as.integer(enrolment), NA_integer_)) %>% 
+  dplyr::mutate(anticipated_enrollment = ifelse(enrolment_type == "Anticipated", as.integer(enrolment), NA_integer_),
+                anticipated_enrollment = last(na.omit(anticipated_enrollment))) %>% 
   dplyr::ungroup()
 
 # create a 'actual enrollment' variable (refers to the observed number of participants who are actually enrolled)
 iv_terminated_cthist <- iv_terminated_cthist %>% 
   dplyr::group_by(nctid) %>% 
-  dplyr::mutate(actual_enrollment = ifelse(enrolment_type == "Actual", as.integer(enrolment), NA_integer_)) %>% 
+  dplyr::mutate(actual_enrollment = ifelse(enrolment_type == "Actual", as.integer(enrolment), NA_integer_),
+                actual_enrollment = last(actual_enrollment)) %>% 
   dplyr::ungroup()
-
 
 
 # keep unique observations generated for each trial
 iv_terminated_cthist_updated <- iv_terminated_cthist %>% 
   dplyr::group_by(nctid) %>%
   dplyr::mutate(
-    anticipated_enrollment = na.omit(anticipated_enrollment)[1],
-    actual_enrollment = dplyr::last(actual_enrollment),
+    anticipated_enrollment = anticipated_enrollment,
+    actual_enrollment = actual_enrollment,
     start_date = na.omit(start_date)[1]
   ) %>% 
   dplyr::ungroup() %>%
@@ -108,9 +110,9 @@ iv_terminated_cthist_updated <- iv_terminated_cthist %>%
   dplyr::distinct(nctid, .keep_all = TRUE) 
 
 
-# generate enrollment_percentage by using function 'check_enrollment'
+# generate enrollment_percentage by using function 'degree_of_enrollment'
 iv_terminated_cthist_updated <- degree_of_enrollment(iv_terminated_cthist_updated,anticipated_column = "anticipated_enrollment",actual_column = "actual_enrollment")
 
-# generate duration of enrollment by using function 'duration_of_enrollment'
-iv_terminated_cthist_updated <- duration_of_enrollment(iv_terminated_cthist_updated, "start_date", "stop_date")
+# generate duration of enrollment by using function 'duration_of_trial'
+iv_terminated_cthist_updated <- duration_of_trial(iv_terminated_cthist_updated, "start_date", "stop_date")
 
