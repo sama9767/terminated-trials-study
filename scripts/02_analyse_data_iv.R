@@ -12,7 +12,7 @@
 # - enrollment_percentage : The percentage of enrollment achieved until termination
 
 # load duration_of_enrollment function
-source(here::here("scripts", "functions", "duration_of_enrollment.R"))
+source(here::here("scripts", "functions", "duration_of_trial.R"))
 
 # load degree_of_enrollment function
 source(here::here("scripts", "functions", "degree_of_enrollment.R"))
