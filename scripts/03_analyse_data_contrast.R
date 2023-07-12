@@ -20,7 +20,7 @@ source(here::here("scripts", "functions", "degree_of_enrollment.R"))
 
 
 # reading CONTRAST raw data
-contrast_raw <- read.csv(here::here("data","processed_dataset","contrast", "California-trials_2014-2017_allresultscombined_pubdate (1).csv"), sep = ";")
+contrast_raw <- read.csv(here::here("data","processed_dataset","contrast", "California-trials_2014-2017_exp.csv"), sep = ";")
 
 # prepare CONTRAST data 
 contrast_raw_terminated <- contrast_raw %>%

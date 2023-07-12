@@ -3,17 +3,15 @@
 # Description:
 # This script processes the ClinicalTrials.gov registered trials with a "Terminated" status. 
 # It utilizes historical entries for these trials obtained using the 'cthist' package by BG Carlisle. 
-# The script generates several variables related to the terminated trials, including the duration of enrollment, 
-# the availability of summary results on ClinicalTrials.gov, the degree of enrollment (anticipated and actual), 
-# and the reason for termination.
+
 
 # Input:
 # The dataset should contain relevant information about the trials, including trial ID (nctid) and its recruitment status ('recruitment_status')
 # The input data should be the ClinicalTrials.gov registered trials with a "Terminated" status in registry. 
 
 # Functions
-# The script uses duration_of_enrollment and degree_of_enrollment function
-# duration_of_enrollment generates number of days participant were involved for particular terminated trial (i.e patient_days)
+# The script uses duration_of_trial and degree_of_enrollment function
+# duration_of_trial generates number of days trial was ongoing until termination (i.e trial_days)
 # degree_of_enrollment generates percentage of enrollment for particular terminated trial (i.e enrollment_percentage)
 
 # Output:
@@ -30,7 +28,7 @@
 
 
 # load duration_of_enrollment function
-source(here::here("scripts", "functions", "duration_of_enrollment.R"))
+source(here::here("scripts", "functions", "duration_of_trial.R"))
 
 # load degree_of_enrollment function
 source(here::here("scripts", "functions", "degree_of_enrollment.R"))
