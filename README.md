@@ -49,7 +49,7 @@ Bi-directional cross-registration checks will be performed using two approaches:
 
 2. Cross-registration from EUCTR to ctgov: EUCTR IDs associated with German UMC leads will be extracted from a [JSON dataset](https://raw.githubusercontent.com/ebmdatalab/euctr-tracker-data/master/all_trials.json), maintained in the [euctr-tracker-data](https://github.com/ebmdatalab/euctr-tracker-data) repository. The dataset will further be analyzed to identify additional identifiers in the protocol and result pages of the EUCTR registry. The `combine_info function`, sourced from a forked version of the ["euctrscrape"](https://github.com/delwen/euctrscrape) repository by Delwen Franzen and originally created by BG Carlisle, will be used for this purpose. From the extracted additional identifiers, NCT IDs found in the original IntoValue dataset will be identified, thus obtaining cross-registered data from both sources.
 
-Once the cross-registered data is obtained, the EUCTR IDs will be checked to determine if the corresponding trials had results posted in the registry using the `get_euctr_result_link.R` function.
+Once the cross-registered data is obtained, the EUCTR IDs will be checked to determine if the corresponding trials had results posted in the registry using the `get_euctr_results.R` function.
 
 ## Input
 The EUCTR trial IDs sourced from bi-directional cross-registration checks 
