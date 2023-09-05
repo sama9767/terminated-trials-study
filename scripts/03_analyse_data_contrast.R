@@ -11,6 +11,7 @@
 # - trial_days : The number of days trial was ongoing until termination
 # - enrollment_percentage : The percentage of enrollment achieved until termination
 
+library(dplyr)
 
 # load duration_of_enrollment function
 source(here::here("scripts", "functions", "duration_of_trial.R"))
@@ -20,7 +21,7 @@ source(here::here("scripts", "functions", "degree_of_enrollment.R"))
 
 
 # reading CONTRAST raw data
-contrast_raw <- read.csv(here::here("data","processed_dataset","contrast", "California-trials_2014-2017_exp.csv"), sep = ";")
+contrast_raw <- read.csv(here::here("data","processed","contrast", "California-trials_2014-2017_exp.csv"), sep = ";")
 
 # prepare CONTRAST data 
 contrast_raw_terminated <- contrast_raw %>%
@@ -28,12 +29,12 @@ contrast_raw_terminated <- contrast_raw %>%
    dplyr::filter(recruitment_status == "Terminated") 
 
 
-# use cthist to get historical data entry for contrast terminated trials
-#contrast_cthist <- clinicaltrials_gov_download(contrast_raw_terminated$nctid)
-contrast_terminated_cthist <- read.csv(here::here("data","processed_dataset","contrast", "cthist_contrast.csv")) 
+# use cthist to get historical data entry for contrast terminated trials (download date: 2023-08-04)
+#contrast_cthist <- cthist::clinicaltrials_gov_download(contrast_raw_terminated$id)
+contrast_terminated_cthist <- read.csv(here::here("data","processed","contrast", "cthist_contrast_1.csv")) 
 
 
-# create reason for termination variable (refers to the reason of termination for a clincial trial)
+# create reason for termination variable (refers to the reason of termination for a clinical trial)
 contrast_terminated_cthist <- contrast_terminated_cthist %>% 
   dplyr::group_by(nctid) %>% 
   dplyr::mutate(why_stopped = ifelse(any(nzchar(whystopped)), dplyr::last(na.omit(whystopped)),NA_character_)) %>% 
@@ -55,7 +56,7 @@ contrast_terminated_cthist <- contrast_terminated_cthist %>%  dplyr::group_by(nc
 # create a 'stop_date' variable (when trial overall status was first updated to terminated in registry)
 contrast_terminated_cthist <- contrast_terminated_cthist %>%
   dplyr::group_by(nctid) %>%
-  dplyr::mutate(stop_date = dplyr::if_else(overall_status == "Terminated", as.character(version_date), NA_character_),
+  dplyr::mutate(stop_date = dplyr::if_else(overall_status == "TERMINATED", as.character(version_date), NA_character_),
                 stop_date = min(stop_date, na.rm = TRUE)) %>%
   dplyr::ungroup()
 
@@ -66,17 +67,16 @@ contrast_terminated_cthist <- contrast_terminated_cthist %>%
 # create a 'anticipated enrollment' variable (refers to the expected number of participants that the trial aims to enroll)
 contrast_terminated_cthist <- contrast_terminated_cthist %>% 
   dplyr::group_by(nctid) %>% 
-  dplyr::mutate(anticipated_enrollment = ifelse(enrolment_type == "Anticipated", as.integer(enrolment), NA_integer_),
+  dplyr::mutate(anticipated_enrollment = ifelse(enrolment_type == "ESTIMATED", as.integer(enrolment), NA_integer_),
                 anticipated_enrollment = last(na.omit(anticipated_enrollment))) %>% 
   dplyr::ungroup()
 
 # create a 'actual enrollment' variable (refers to the observed number of participants who are actually enrolled)
 contrast_terminated_cthist <- contrast_terminated_cthist %>% 
   dplyr::group_by(nctid) %>% 
-  dplyr::mutate(actual_enrollment = ifelse(enrolment_type == "Actual", as.integer(enrolment), NA_integer_),
+  dplyr::mutate(actual_enrollment = ifelse(enrolment_type == "ACTUAL", as.integer(enrolment), NA_integer_),
                 actual_enrollment = dplyr::last(actual_enrollment)) %>% 
   dplyr::ungroup()
-
 
 
 # keep unique observations generated for each trial
