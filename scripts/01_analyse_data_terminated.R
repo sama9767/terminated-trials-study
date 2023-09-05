@@ -26,6 +26,7 @@
 # - trial_days : The number of days was ongoing until termination
 # - enrollment_percentage : The percentage of enrollment achieved until termination
 
+library(dplyr)
 
 # load duration_of_enrollment function
 source(here::here("scripts", "functions", "duration_of_trial.R"))
