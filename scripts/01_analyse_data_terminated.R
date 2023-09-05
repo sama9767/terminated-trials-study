@@ -40,7 +40,7 @@ source(here::here("scripts", "functions", "degree_of_enrollment.R"))
 raw_data <- here(path/to/file/raw_data.csv)
 
 # prepare the data for terminated trials 
-raw_trials <- raw_data 
+raw_trials <- raw_data
 
 
 # prepare raw data (optional step to filter raw data for trials registered in ClincialTrials.gov with "Terminated status" )
