@@ -1,0 +1,26 @@
+Package: terminatedtrialsstudy
+Title: Processing Terminated Trials from ClinicalTrials.gov
+Version: 0.0.0.1
+Authors@R: c(
+   person(
+      "Samruddhi", "Yerunkar",
+      email="samruddhi.yerunkar@charite.de",
+      role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0002-0748-383X")
+   ),
+   person(
+     "Benjamin Gregory",
+     "Carlisle",
+     email="murph@bgcarlisle.com",
+     role = c("aut"),
+     comment = c(ORCID = "0000-0001-8975-0649")
+   )
+ )
+Description: 
+License:
+Imports:
+    testthat,
+    lubridate
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3

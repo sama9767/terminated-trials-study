@@ -23,9 +23,6 @@
 #   df <- duration_of_trial(df, "start_date", "stop_date")
 #
 
-
-library(lubridate)
-
 duration_of_trial <- function(df, start_date_col, stop_date_col) {
   df$trial_days <- NA
   
