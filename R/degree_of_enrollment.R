@@ -57,58 +57,24 @@ degree_of_enrollment <- function(df, anticipated_column,
                                  actual_column, round_off = 2) {
 
     ## Some testing to ensure data integrity
-    
-    test_that(
-        "The function has been passed a data frame",
-        {
-            expect_equal(
-                is.data.frame(df),
-                TRUE
-            )
-        }
+
+    assert_that(
+        is.data.frame(df)
     )
 
-    test_that(
-        "The anticipated column exists",
-        {
-            expect_equal(
-                anticipated_column %in% colnames(df),
-                TRUE
-            )
-        }
-    )
-    
-    test_that(
-        "The actual column exists",
-        {
-            expect_equal(
-                actual_column %in% colnames(df),
-                TRUE
-            )
-        }
+    assert_that(
+        has_name(df, c(anticipated_column, actual_column))
     )
 
-    test_that(
-        "The rounding number is an integer or NA",
-        {
-            expect_equal(
-                is.na(round_off) || round_off == round(round_off),
-                TRUE
-            )
-        }
+    assert_that(
+        is.count(round_off)
+    )
+
+    assert_that(
+        ! has_name(df, "enrollment_percentage")
     )
     
-    test_that(
-        "The column to be created doesn't exist",
-        {
-            expect_equal(
-                "enrollment_percentage" %in% colnames(df),
-                FALSE
-            )
-        }
-    )
-    
-    # Create the 'percentage' column and initialize with NA
+    ## Create the 'percentage' column and initialize with NA
     df$enrollment_percentage <- NA
   
     for (i in 1:nrow(df)) {
