@@ -1,3 +1,7 @@
+#' @title degree_of_enrollment
+#'
+#' @description
+#'
 #' This function checks the enrolment status in a dataframe by
 #' calculating the enrolment percentage based on the values in the
 #' 'anticipated_enrolment' and 'actual_enrolment' columns.  It handles
@@ -38,7 +42,7 @@
 #'   # 'anticipated_enrollment' and 'actual_enrollment' columns:
 #'
 #'   # Round the percentage values to 1 decimal place
-#'   updated_df <- duration_of_enrollment(
+#'   updated_df <- degree_of_enrollment(
 #'     df,
 #'     "anticipated_enrollment",
 #'     "actual_enrollment",
@@ -46,7 +50,7 @@
 #'   )
 #'
 #'   # Do not round the percentage values
-#'   updated_df <- duration_of_enrollment(
+#'   updated_df <- degree_of_enrollment(
 #'     df,
 #'     "anticipated_enrollment",
 #'     "actual_enrollment",
@@ -58,20 +62,29 @@ degree_of_enrollment <- function(df, anticipated_column,
 
     ## Some testing to ensure data integrity
 
-    assert_that(
-        is.data.frame(df)
+    assertthat::assert_that(
+        is.data.frame(df),
+        msg="Argument provided (df) is not a valid data frame"
     )
 
-    assert_that(
-        has_name(df, c(anticipated_column, actual_column))
+    assertthat::assert_that(
+        assertthat::has_name(df, anticipated_column),
+        msg="Anticipated enrollment column not found"
     )
 
-    assert_that(
-        is.count(round_off)
+    assertthat::assert_that(
+        assertthat::has_name(df, actual_column),
+        msg="Actual enrollment column not found"
     )
 
-    assert_that(
-        ! has_name(df, "enrollment_percentage")
+    assertthat::assert_that(
+        assertthat::is.count(round_off) || is.na(round_off),
+        msg="Rounding argument is not an integer"
+    )
+
+    assertthat::assert_that(
+        ! assertthat::has_name(df, "enrollment_percentage"),
+        msg="The enrollment_percentage column already exists"
     )
     
     ## Create the 'percentage' column and initialize with NA

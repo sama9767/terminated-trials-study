@@ -2,8 +2,7 @@
 % Please edit documentation in R/enrollment_percentage_formula.R
 \name{enrollment_percentage_formula}
 \alias{enrollment_percentage_formula}
-\title{This function calculates the percentage enrolled based on
-'anticipated_enrolment' and 'actual_enrolment' arguments}
+\title{enrollment_percentage_formula}
 \usage{
 enrollment_percentage_formula(actual_enrollment, anticipated_enrollment)
 }

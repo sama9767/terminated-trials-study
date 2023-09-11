@@ -2,11 +2,7 @@
 % Please edit documentation in R/degree_of_enrollment.R
 \name{degree_of_enrollment}
 \alias{degree_of_enrollment}
-\title{This function checks the enrolment status in a dataframe by
-calculating the enrolment percentage based on the values in the
-'anticipated_enrolment' and 'actual_enrolment' columns.  It handles
-missing values and provides an option to round the percentage
-values.}
+\title{degree_of_enrollment}
 \usage{
 degree_of_enrollment(df, anticipated_column, actual_column, round_off = 2)
 }
@@ -27,6 +23,12 @@ The updated dataframe with the 'enrollment_percentage'
 column populated.
 }
 \description{
+This function checks the enrolment status in a dataframe by
+calculating the enrolment percentage based on the values in the
+'anticipated_enrolment' and 'actual_enrolment' columns.  It handles
+missing values and provides an option to round the percentage
+values.
+
 The function iterates through each row of the dataframe and checks
 if there are missing values in the 'anticipated_enrollment' and
 'actual_enrollment' columns. If any of the values is missing, it
@@ -35,8 +37,7 @@ assigns "Check missing values" to the corresponding row in the
 percentage using the formula: actual_enrollment /
 anticipated_enrollment * 100.  The percentage values can be
 optionally rounded to a specified number of decimal places.
-}
-\details{
+
 Usage: degree_of_enrollment(df, "anticipated_column",
 "actual_column", round_off = 2)
 }
@@ -46,7 +47,7 @@ Usage: degree_of_enrollment(df, "anticipated_column",
   # 'anticipated_enrollment' and 'actual_enrollment' columns:
 
   # Round the percentage values to 1 decimal place
-  updated_df <- duration_of_enrollment(
+  updated_df <- degree_of_enrollment(
     df,
     "anticipated_enrollment",
     "actual_enrollment",
@@ -54,7 +55,7 @@ Usage: degree_of_enrollment(df, "anticipated_column",
   )
 
   # Do not round the percentage values
-  updated_df <- duration_of_enrollment(
+  updated_df <- degree_of_enrollment(
     df,
     "anticipated_enrollment",
     "actual_enrollment",

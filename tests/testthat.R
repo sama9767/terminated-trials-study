@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(terminated-trials-study)
+library(terminatedtrialsstudy)
 
-test_check("terminated-trials-study")
+test_check("terminatedtrialsstudy")

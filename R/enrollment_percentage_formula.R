@@ -1,3 +1,7 @@
+#' @title enrollment_percentage_formula
+#'
+#' @description
+#'
 #' This function calculates the percentage enrolled based on
 #' 'anticipated_enrolment' and 'actual_enrolment' arguments
 #'
@@ -19,26 +23,16 @@ enrollment_percentage_formula <- function(actual_enrollment,
                                           anticipated_enrollment) {
 
     ## Ensure data integrity
-    test_that(
-        "Actual enrollment is an integer",
-        {
-            expect_equal(
-                actual_enrollment,
-                round(actual_enrollment)
-            )
-        }
-    )
+    assertthat::assert_that(
+                    assertthat::is.count(actual_enrollment),
+                    msg="Actual enrollment is not an integer"
+                )
     
-    test_that(
-        "Anticipated enrollment is an integer",
-        {
-            expect_equal(
-                anticipated_enrollment,
-                round(anticipated_enrollment)
-            )
-        }
-    )
-
+    assertthat::assert_that(
+                    assertthat::is.count(anticipated_enrollment),
+                    msg="Anticipated enrollment is not an integer"
+                )
+    
     ## Return result
     return(100 * actual_enrollment / anticipated_enrollment)
 }

@@ -16,11 +16,16 @@ Authors@R: c(
      comment = c(ORCID = "0000-0001-8975-0649")
    )
  )
-Description: 
-License:
+Description: Processing Terminated Trials from ClinicalTrials.gov
+License: CC BY 4.0
 Imports:
     assertthat,
-    lubridate
+    lubridate,
+    magrittr,
+    rvest,
+    testthat,
+    tibble
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Config/testthat/edition: 3
