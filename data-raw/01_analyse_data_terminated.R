@@ -28,14 +28,6 @@
 
 library(dplyr)
 
-# load duration_of_enrollment function
-source(here::here("scripts", "functions", "duration_of_trial.R"))
-
-# load degree_of_enrollment function
-source(here::here("scripts", "functions", "degree_of_enrollment.R"))
-
-
-
 # get NCT IDs with status 'terminated' (assumes NCT IDs column name as 'nctid')
 raw_data <- here(path/to/file/raw_data.csv)
 
