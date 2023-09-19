@@ -1,4 +1,4 @@
-# terminatedtrialsstudy      
+# terminated-trials-study      
 
 # Overview
 This repository focuses on processing [ClinicalTrials.gov](https://clinicaltrials.gov/) registered trials with a "Terminated" status, aiming to assess and provide insights for such trials. 
