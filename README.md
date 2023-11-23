@@ -14,13 +14,21 @@ install_github("sama9767/terminated-trials-study")
 library(terminatedtrialsstudy)
 ```
 ## Functions
+`get_anticipated_enrollment `: This function retrieves the estimated enrollment of a clinical trial as reported on ClinicalTrials.gov.
+
+`get_actual_enrollment`: This function retrieves the final recorded enrollment of a clinical trial as reported on ClinicalTrials.gov. 
+
+`get_why_stopped`:  This function retrieves the reason for trial termination, or returns `no result posted` if the reason is not available.
+
+`has_summary_result`: This function checks whether a ClinicalTrials.gov trial has posted summary results and returns a logical vector TRUE if results were posted, otherwise FALSE
+
 `degree_of_enrollment`: This function checks the enrolment status in a dataframe by calculating the enrolment percentage based on the values in the 'anticipated_enrolment' and 'actual_enrolment' columns. 
 
 `duration_of_trial` : This function calculates the duration of the trial in days for each row of a data frame, based on the provided start and stop date columns.
 
-`get_euctr_results`:  Retrieves result link if results were posted for EUCTR entry, otherwise returns 'No result found'
+`get_euctr_results`: This function retrieves result link if results were posted for EUCTR entry, otherwise returns 'No result found'
 
-`adverse_events`: Retrieves adverse events section for an EUCTR entry with the result section
+`adverse_events`: This function retrieves adverse events section for an EUCTR entry with the result section
 
 
  
