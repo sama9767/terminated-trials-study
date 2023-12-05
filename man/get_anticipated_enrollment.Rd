@@ -4,16 +4,20 @@
 \alias{get_anticipated_enrollment}
 \title{get_anticipated_enrollment}
 \usage{
-get_anticipated_enrollment(nctid)
+get_anticipated_enrollment(
+  nctid,
+  historical_version = FALSE,
+  data_frame_name = NULL
+)
 }
 \arguments{
 \item{nctid}{Trial registration number for ClinicalTrials.gov trial. Can be a single value or a vector.}
 }
 \value{
-anticipated enrollment
+anticipated enrollment.
 }
 \description{
-This function retrieves the estimated enrollment of a clinical trial
+This function retrieves the estimated enrollment of a clinical trial at time of trial launch
 }
 \examples{
 

@@ -4,10 +4,14 @@
 \alias{get_stop_date}
 \title{get_stop_date}
 \usage{
-get_stop_date(nctid)
+get_stop_date(nctid, historical_version = FALSE, data_frame_name = NULL)
 }
 \arguments{
 \item{nctid}{Trial registration number for ClinicalTrials.gov trial. Can be a single value or a vector.}
+
+\item{historical_version}{Logical. If TRUE, skips downloading historical versions using cthist and directly uses the provided data.}
+
+\item{data_frame_name}{Character. The name of the data frame to use when historical_version is TRUE.}
 }
 \value{
 stop date
@@ -17,9 +21,4 @@ This function creates stop_date of a clinical trial, which is defined
 as the actual primary completion date reported on the clinical trial record when
 its overall status was first changed to ‘Terminated’ from any other overall status
 in the ClinicalTrials.gov registry.
-}
-\examples{
-
-get_stop_date("NCT00480077")
-
 }

@@ -4,7 +4,11 @@
 \alias{get_actual_enrollment}
 \title{get_actual_enrollment}
 \usage{
-get_actual_enrollment(nctid)
+get_actual_enrollment(
+  nctid,
+  historical_version = FALSE,
+  data_frame_name = NULL
+)
 }
 \arguments{
 \item{nctid}{Trial registration number for ClinicalTrials.gov trial. Can be a single value or a vector.}

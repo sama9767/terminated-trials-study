@@ -4,7 +4,7 @@
 \alias{get_why_stopped}
 \title{get_why_stopped}
 \usage{
-get_why_stopped(nctid)
+get_why_stopped(nctid, historical_version = FALSE, data_frame_name = NULL)
 }
 \arguments{
 \item{nctid}{Trial registration number for ClinicalTrials.gov trial}

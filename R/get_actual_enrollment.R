@@ -18,7 +18,7 @@
 #' 
 #' 
 
-get_actual_enrollment <- function(nctid) {
+get_actual_enrollment <- function(nctid, historical_version = FALSE, data_frame_name = NULL) {
   # Ensure nctid is character or a vector of characters
   assertthat::assert_that(
     is.character(nctid) | (is.vector(nctid) && is.character(nctid)),
@@ -28,8 +28,19 @@ get_actual_enrollment <- function(nctid) {
   # Convert single nctid to vector for consistency
   nctid <- as.character(nctid)
   
-  # Retrieve historical version of nct_ids
-  raw_trials <- cthist::clinicaltrials_gov_download(nctid)
+  if (!historical_version) {
+    # Retrieve historical version of nct_ids
+    raw_trials <- cthist::clinicaltrials_gov_download(nctid)
+  } else {
+    # If historical version is TRUE, use provided data
+    if (!is.null(data_frame_name)) {
+      # If data_frame_name is provided use it
+      raw_trials <- data_frame_name
+    } else {
+      stop("when historical_version is TRUE, data_frame_name must be provided")
+    }
+  }
+  
   
   # Generate new variable of actual enrollment
   actual_enrollment <- raw_trials |> 
@@ -43,6 +54,10 @@ get_actual_enrollment <- function(nctid) {
     dplyr::mutate(actual_enrollment = dplyr::last(na.omit(actual_enrollment))
     )   
   
+  # Select the distinct row of nctid and its anticipated enrollment
+  distinct_actual_enrollment <- actual_enrollment |>
+    dplyr::distinct(nctid, actual_enrollment)
+  
   # Return actual_enrollment 
-  return(actual_enrollment)
+  return(distinct_actual_enrollment)
 }

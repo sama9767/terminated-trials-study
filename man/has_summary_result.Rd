@@ -4,16 +4,20 @@
 \alias{has_summary_result}
 \title{has_summary_result}
 \usage{
-has_summary_result(nctid)
+has_summary_result(nctid, historical_version = FASLE, data_frame_name = NULL)
 }
 \arguments{
 \item{nctid}{Trial registration number for ClinicalTrials.gov trial. Can be a single value or a vector.}
+
+\item{historical_version}{Logical. If TRUE, skips downloading historical versions using cthist and directly uses the provided data.}
+
+\item{data_frame_name}{Character. The name of the data frame to use when historical_version is TRUE.}
 }
 \value{
 logical vector TRUE if results were posted, otherwise FALSE
 }
 \description{
-This function checks whether a ClinicalTrials.gov trial has posted summary results.
+This function checks whether a ClinicalTrials.gov trial has posted summary results. It retrieves the final version of the trial data, considering the historical version if specified.
 }
 \examples{
 

@@ -8,6 +8,10 @@
 #'     
 #' @param nctid Trial registration number for ClinicalTrials.gov trial. Can be a single value or a vector.
 #'
+#' @param historical_version Logical. If TRUE, skips downloading historical versions using cthist and directly uses the provided data.
+#'
+#' @param data_frame_name Character. The name of the data frame to use when historical_version is TRUE.
+#'
 #' @return stop date 
 #'     
 #'
@@ -15,13 +19,8 @@
 #'
 #' @importFrom magrittr %>%
 #'
-#'
-#' @examples
-#'
-#' get_stop_date("NCT00480077")
-#'
 
-get_stop_date <- function(nctid) {
+get_stop_date <- function(nctid, historical_version = FALSE, data_frame_name = NULL) {
   # Ensure nctid is character or a vector of characters
   assertthat::assert_that(
     is.character(nctid) | (is.vector(nctid) && is.character(nctid)),
@@ -31,8 +30,18 @@ get_stop_date <- function(nctid) {
   # Convert single nctid to vector for consistency
   nctid <- as.character(nctid)
   
-  # Retrieve historical version of nct_ids
-  raw_trials <- cthist::clinicaltrials_gov_download(nctid)
+  # If historical_version is FALSE, download historical versions
+  if (!historical_version) {
+    # Retrieve historical version of nct_ids
+    raw_trials <- cthist::clinicaltrials_gov_download(nctid)
+  } else {
+    if (!is.null(data_frame_name)) {
+      # If data_frame_name is provided, use it
+      raw_trials <- data_frame_name
+    } else {
+      stop("When historical_version is TRUE, data_frame_name must be provided.")
+    }
+  }
   
   # Create a 'stop_date' variable
   stop_date_df <- 
@@ -43,10 +52,11 @@ get_stop_date <- function(nctid) {
   
   # Group by nct_id and mutate stop_date
   stop_date_df <- stop_date_df |>
-   dplyr::group_by(nctid) |>
+    dplyr::group_by(nctid) |>
     dplyr::mutate(
       stop_date = na.omit(stop_date)[1]
-    ) 
+    ) |>
+    dplyr::distinct(nctid, stop_date)
   
   # Return stop_date dataframe
   return(stop_date_df)
