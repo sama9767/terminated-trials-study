@@ -24,7 +24,9 @@ Imports:
     magrittr,
     rvest,
     testthat,
-    tibble
+    tibble,
+    tidyverse,
+    jsonlite
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
