@@ -1,4 +1,4 @@
-# terminated-trials-study  [in development]
+# terminated-trials-study
 
 # Overview
 This package provides functions to analyze terminated clinical trials from ClinicalTrials.gov.
