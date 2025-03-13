@@ -1,18 +1,27 @@
 #' @title aggregate_arms
 #'
-#' @description This function aggregates the serious adverse event (SAE) data by trial and arm, calculating the total number of participants affected and the total number at risk for each group within a clinical trial.
+#' @description This function aggregates the serious adverse event
+#'     (SAE) data by trial and arm, calculating the total number of
+#'     participants affected and the total number at risk for each
+#'     group within a clinical trial.
 #' 
-#' @param df A data frame containing clinical trial information, including trial ID, arm assignment, number affected by serious adverse events, and number at risk.
-
-#' @return A tibble summarizing the total number of participants affected by serious adverse events and the total number at risk, grouped by trial ID and arm assignment.
+#' @param df A data frame containing clinical trial information,
+#'     including trial ID, arm assignment, number affected by serious
+#'     adverse events, and number at risk.
+#'
+#' @return A tibble summarizing the total number of participants
+#'     affected by serious adverse events and the total number at
+#'     risk, grouped by trial ID and arm assignment.
 #' @export
 #'
 #' @importFrom magrittr %>%
 #' @importFrom assertthat assert_that
-
+#'
 #'
 #' @examples
-#' aggregate_arms(trial_data, "nctid", "arm_group", "serious_affected", "serious_at_risk")
+#'
+#' aggregate_arms(trial_data, "nctid", "arm_group",
+#'     "serious_affected", "serious_at_risk")
 
 aggregate_arms <- function(df, trial_id, arm_assigned, affected_col, risk_col) {
   
