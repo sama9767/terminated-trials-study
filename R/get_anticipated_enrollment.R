@@ -44,7 +44,7 @@ get_anticipated_enrollment <- function(nctid, historical_version = FALSE, data_f
   # Generate new variable of anticipated enrollment
   anticipated_enrollment <- raw_trials |>
     dplyr::group_by(nctid) |>
-    dplyr::mutate(anticipated_enrollment = ifelse(enrolment_type == "ESTIMATED", as.integer(enrolment), NA_integer_)) |>
+    dplyr::mutate(anticipated_enrollment = ifelse(enrolment_type == "ESTIMATED" | is.na(enrolment_type), as.integer(enrolment), NA_integer_)) |>
     dplyr::ungroup()
   
   # Group by nct_id and mutate anticipated_enrollment
