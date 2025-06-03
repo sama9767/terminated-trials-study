@@ -14,7 +14,6 @@
 #'     risk, grouped by trial ID and arm assignment.
 #' @export
 #'
-#' @importFrom magrittr %>%
 #' @importFrom assertthat assert_that
 #'
 #'
@@ -36,7 +35,7 @@ aggregate_arms <- function(df, trial_id, arm_assigned, affected_col, risk_col) {
               msg = paste(arm_assigned, "should be of type character or factor."))
   
   # Convert columns to numeric if they are not already
-  df <- df %>%
+  df <- df|>
     mutate(across(all_of(affected_col), ~ as.numeric(as.character(.)), .names = "numeric_{.col}"),
            across(all_of(risk_col), ~ as.numeric(as.character(.)), .names = "numeric_{.col}"))
   
@@ -47,8 +46,8 @@ aggregate_arms <- function(df, trial_id, arm_assigned, affected_col, risk_col) {
               msg = paste(risk_col, "could not be converted to numeric."))
   
   # Group by trial and arm type, and summarize the serious numbers
-  df_summarized <- df %>%
-    group_by(across(all_of(trial_id)), across(all_of(arm_assigned))) %>%
+  df_summarized <- df|>
+    group_by(across(all_of(trial_id)), across(all_of(arm_assigned)))|>
     summarise(
       total_seriousnumaffected = sum(.data[[paste0("numeric_", affected_col)]], na.rm = TRUE),
       total_seriousnumatrisk = sum(.data[[paste0("numeric_", risk_col)]], na.rm = TRUE),
