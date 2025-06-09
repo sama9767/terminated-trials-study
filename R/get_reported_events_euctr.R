@@ -1,4 +1,4 @@
-#' @title adverse_events
+#' @title get_euctr_sae_data
 #'
 #' @description Retrieves adverse events section for a EUCTR entry
 #'     with result section
@@ -15,9 +15,9 @@
 #' 
 #' @examples
 #'
-#' adverse_events("2008-006649-18")
+#' get_euctr_sae_data("2008-006649-18")
 
-adverse_events <- function(trn) {
+get_euctr_sae_data <- function(trn) {
     
     ## Throw error if input is not well-formed
     assertthat::assert_that(

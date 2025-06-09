@@ -4,7 +4,7 @@
 \alias{duration_of_trial}
 \title{duration_of_trials}
 \usage{
-duration_of_trial(df, start_date_col, stop_date_col, inclusive = TRUE)
+duration_of_trial(df, start_date_col, stop_date_col)
 }
 \arguments{
 \item{df}{The data frame containing enrolment data.}
@@ -16,16 +16,6 @@ start start date of the trial.}
 date on which its corresponding clinical trial record's overall
 status was first changed to "Terminated" from any other overall
 status in the ClinicalTrials.gov registry.}
-
-\item{inclusive}{Boolean TRUE or FALSE. If TRUE, it adds one to the
-number of trial days calculated to include the last day. This
-would mean that a trial with a start date on the 1st of the
-month and a stop date on the 31st of the month would have a
-duration of 31 days (31-1+1, default behaviour). If FALSE,
-nothing is added to the number of trial days calculated. This
-would mean that a trial with a start date on the 1st of the
-month and a stop date on the 31st of the month would have a
-duration of 30 days only (31-1+0).}
 }
 \value{
 The original input data frame with an additional column

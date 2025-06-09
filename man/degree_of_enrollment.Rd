@@ -4,10 +4,16 @@
 \alias{degree_of_enrollment}
 \title{degree_of_enrollment}
 \usage{
-degree_of_enrollment(df, anticipated_column, actual_column, round_off = 2)
+degree_of_enrollment(
+  df,
+  anticipated_column,
+  actual_column,
+  trial_column,
+  round_off = 2
+)
 }
 \arguments{
-\item{df}{The dataframe containing enrolment data.}
+\item{df}{The dataframe containing enrollment data.}
 
 \item{anticipated_column}{The column name for the anticipated
 enrollment values in the dataframe.}
@@ -15,50 +21,30 @@ enrollment values in the dataframe.}
 \item{actual_column}{The column name for the actual enrollment
 values in the dataframe.}
 
+\item{trial_column}{The column for grouping the data by trial (trial id)}
+
 \item{round_off}{(Optional) The number of decimal places to round
 the percentage values. Defaults to 2. Use NA to avoid rounding.}
 }
 \value{
-The updated dataframe with the 'enrollment_percentage'
-column populated.
+A list containing:
+updated_dataframe: The input dataframe with an added column enrollment_percentage,
+showing the calculated enrollment percentage for each row.
+trial_summary: A data frame summarizing enrollment data by trial level (total anticipated,
+total actual, and trial-level enrollment percentages).
+dataset_summary: A data frame summarizing dataset-wide enrollment statistics (median, minimum, maximum)
+summary_anticipated_enrollment: A summary of anticipated enrollment statistics (median, IQR, and quantiles).
+summary_actual_enrollment: A summary of actual enrollment statistics (median, IQR, and quantiles).
+overall_degree_of_enrollment: A summary of the overall enrollment percentage
 }
 \description{
-This function checks the enrolment status in a dataframe by
-calculating the enrolment percentage based on the values in the
-'anticipated_enrolment' and 'actual_enrolment' columns.  It handles
-missing values and provides an option to round the percentage
-values.
-
-The function iterates through each row of the dataframe and checks
-if there are missing values in the 'anticipated_enrollment' and
-'actual_enrollment' columns. If any of the values is missing, it
-assigns "Check missing values" to the corresponding row in the
-'percentage' column. Otherwise, it calculates the enrollment
-percentage using the formula: actual_enrollment /
-anticipated_enrollment * 100.  The percentage values can be
-optionally rounded to a specified number of decimal places.
-
-Usage: degree_of_enrollment(df, "anticipated_column",
-"actual_column", round_off = 2)
+This function checks the enrollment status in a dataframe by
+calculating the enrollment percentage based on the values in the
+'anticipated_enrollment' and 'actual_enrollment' columns.  It also computes
+trial and dataset summaries and additional statistics related to the
+anticipated and actual enrollments.
 }
 \examples{
-
-  # Assuming you have a dataframe named 'df' with
-  # 'anticipated_enrollment' and 'actual_enrollment' columns:
-
-  # Round the percentage values to 1 decimal place
-  updated_df <- degree_of_enrollment(
-    df,
-    "anticipated_enrollment",
-    "actual_enrollment",
-    round_off = 1
-  )
-
-  # Do not round the percentage values
-  updated_df <- degree_of_enrollment(
-    df,
-    "anticipated_enrollment",
-    "actual_enrollment",
-    round_off = NA
-  )
+result <- degree_of_enrollment(df, "anticipated_enrollment", "actual_enrollment", "trial_id")
+print(result$trial_summary)
 }

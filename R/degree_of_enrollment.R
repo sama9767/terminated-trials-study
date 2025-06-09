@@ -31,9 +31,11 @@
 #' summary_anticipated_enrollment: A summary of anticipated enrollment statistics (median, IQR, and quantiles).
 #' summary_actual_enrollment: A summary of actual enrollment statistics (median, IQR, and quantiles).
 #' overall_degree_of_enrollment: A summary of the overall enrollment percentage 
+#' 
+#' @export
 #'
-#'@examples
-#' result <- degree_of_enrollment(df, "anticipated_enrollment", actual_enrollment", "trial_id")
+#' @examples
+#' result <- degree_of_enrollment(df, "anticipated_enrollment", "actual_enrollment", "trial_id")
 #' print(result$trial_summary)
 
 degree_of_enrollment <- function(df, anticipated_column, actual_column, trial_column, round_off = 2) {

@@ -7,14 +7,23 @@
 aggregate_arms(df, trial_id, arm_assigned, affected_col, risk_col)
 }
 \arguments{
-\item{df}{A data frame containing clinical trial information, including trial ID, arm assignment, number affected by serious adverse events, and number at risk.}
+\item{df}{A data frame containing clinical trial information,
+including trial ID, arm assignment, number affected by serious
+adverse events, and number at risk.}
 }
 \value{
-A tibble summarizing the total number of participants affected by serious adverse events and the total number at risk, grouped by trial ID and arm assignment.
+A tibble summarizing the total number of participants
+affected by serious adverse events and the total number at
+risk, grouped by trial ID and arm assignment.
 }
 \description{
-This function aggregates the serious adverse event (SAE) data by trial and arm, calculating the total number of participants affected and the total number at risk for each group within a clinical trial.
+This function aggregates the serious adverse event
+(SAE) data by trial and arm, calculating the total number of
+participants affected and the total number at risk for each
+group within a clinical trial.
 }
 \examples{
-aggregate_arms(trial_data, "nctid", "arm_group", "serious_affected", "serious_at_risk")
+
+aggregate_arms(trial_data, "nctid", "arm_group",
+    "serious_affected", "serious_at_risk")
 }
