@@ -3,3 +3,4 @@
 cache/
 .Rhistory
 .Rbuildignore
+R/build_package.R
