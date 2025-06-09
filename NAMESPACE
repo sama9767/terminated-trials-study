@@ -2,6 +2,7 @@
 
 export(aggregate_arms)
 export(degree_of_enrollment)
+export(duration_of_trial)
 export(enrollment_percentage_formula)
 export(get_actual_enrollment)
 export(get_anticipated_enrollment)

@@ -23,10 +23,14 @@
 #'     days. If missing values are encountered in either the start or
 #'     stop date columns, the 'trial_days' value for that row will be
 #'     set to "Check missing values".
+#'     
+#' 
 #'
 #' @examples
 #'
 #' df <- duration_of_trial(df, "start_date", "stop_date")
+#' 
+#' @export
 
 duration_of_trial <- function(df, start_date_col, stop_date_col) {
 

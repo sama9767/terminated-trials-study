@@ -33,4 +33,5 @@ format of the dates has changed.
 \examples{
 
 df <- duration_of_trial(df, "start_date", "stop_date")
+
 }
