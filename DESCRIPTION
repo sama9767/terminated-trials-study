@@ -17,7 +17,7 @@ Authors@R: c(
    )
  )
 Description: Processing Terminated Trials from ClinicalTrials.gov
-License: CC BY 4.0
+License: AGPL-3
 Imports:
     assertthat,
     lubridate,
